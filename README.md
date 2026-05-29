@@ -21,4 +21,4 @@ The site is intentionally dependency-free: `index.html`, `favicon.ico`, and file
 ## Assets
 
 - `assets/hero-community-health-workers.jpg` is a public-domain Wikimedia Commons photo, "Community Health Workers (5762479865).jpg", credited there to Nena Terrell/USAID.
-- `assets/acompa-icon-white.png` and `favicon.ico` come from Acompa brand assets.
+- `assets/acompa-icon-transparent.png` and `favicon.ico` come from Acompa brand assets.

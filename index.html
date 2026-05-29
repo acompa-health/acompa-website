@@ -69,10 +69,11 @@
     }
 
     .brand-icon {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       object-fit: contain;
       flex: 0 0 auto;
+      filter: drop-shadow(0 2px 8px rgba(12, 39, 35, 0.30));
     }
 
     .nav {
@@ -131,20 +132,6 @@
       width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
       padding-top: 30px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      width: fit-content;
-      margin: 0 0 24px;
-      padding: 8px 12px;
-      border: 1px solid rgba(213, 227, 219, 0.42);
-      border-radius: 999px;
-      color: rgba(247, 251, 248, 0.88);
-      font-size: 0.82rem;
-      font-weight: 650;
-      letter-spacing: 0;
-      background: rgba(42, 92, 85, 0.34);
     }
 
     h1 {
@@ -345,7 +332,7 @@
 
     .people {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(320px, 1.34fr);
       gap: 16px;
       margin-top: 42px;
     }
@@ -366,19 +353,27 @@
 
     .profile-link {
       display: inline-flex;
-      width: fit-content;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
       margin-top: 18px;
-      color: var(--blue);
-      font-weight: 750;
-      font-size: 0.94rem;
-      border-bottom: 1px solid rgba(38, 152, 218, 0.40);
-      transition: border-color 160ms ease, color 160ms ease;
+      color: var(--white);
+      background: #0a66c2;
+      border-radius: 4px;
+      transition: background-color 160ms ease, transform 160ms ease;
+    }
+
+    .profile-link svg {
+      width: 15px;
+      height: 15px;
+      display: block;
     }
 
     .profile-link:hover,
     .profile-link:focus-visible {
-      color: var(--deep);
-      border-color: var(--deep);
+      background: #084f96;
+      transform: translateY(-1px);
       outline: none;
     }
 
@@ -418,6 +413,12 @@
     .footer-row a {
       color: rgba(255, 253, 247, 0.82);
       border-bottom: 1px solid rgba(255, 253, 247, 0.28);
+    }
+
+    @media (max-width: 1080px) and (min-width: 921px) {
+      .people {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
     @media (max-width: 920px) {
@@ -479,13 +480,6 @@
         padding-top: 0;
       }
 
-      .eyebrow {
-        max-width: 100%;
-        margin-bottom: 16px;
-        padding: 7px 10px;
-        font-size: 0.78rem;
-      }
-
       h1 {
         font-size: 2.72rem;
       }
@@ -533,7 +527,7 @@
 <body>
   <header class="site-header" aria-label="Primary navigation">
     <a class="brand" href="#top" aria-label="Acompa Health home">
-      <img class="brand-icon" src="assets/acompa-icon-white.png" alt="" aria-hidden="true">
+      <img class="brand-icon" src="assets/acompa-icon-transparent.png" alt="" aria-hidden="true">
       <span>Acompa Health</span>
     </a>
     <nav class="nav" aria-label="Page sections">
@@ -547,7 +541,6 @@
     <section class="hero" aria-labelledby="hero-title">
       <img class="hero-image" src="assets/hero-community-health-workers.jpg" alt="" aria-hidden="true">
       <div class="hero-content">
-        <p class="eyebrow">Virtual-first primary care for the systems that need it most</p>
         <h1 id="hero-title">Acompa Health</h1>
         <p class="hero-lede">We build technology that helps primary care reach people where they are.</p>
         <p class="hero-note">Voice-first, human-centered systems for community health, care navigation, and continuous support.</p>
@@ -637,25 +630,41 @@
             <h3>Kebba Jobarteh</h3>
             <div class="role">Clinical implementation</div>
             <p>Physician and health systems leader who has built and led care delivery programs across sub-Saharan Africa.</p>
-            <a class="profile-link" href="https://www.linkedin.com/in/kebba-jobarteh" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="profile-link" href="https://www.linkedin.com/in/kebba-jobarteh" target="_blank" rel="noopener" aria-label="Kebba Jobarteh on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/>
+              </svg>
+            </a>
           </article>
           <article class="person">
             <h3>Kuang Chen</h3>
             <div class="role">Technology and systems</div>
             <p>Computer scientist and entrepreneur with deep experience in applied machine learning and health service infrastructure.</p>
-            <a class="profile-link" href="https://www.linkedin.com/in/kuangchen" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="profile-link" href="https://www.linkedin.com/in/kuangchen" target="_blank" rel="noopener" aria-label="Kuang Chen on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/>
+              </svg>
+            </a>
           </article>
           <article class="person">
             <h3>Brian DeRenzi</h3>
             <div class="role">Digital health and AI</div>
             <p>Designer of frontline health tools and AI systems for low-resource settings, including CommCare and Open Chat Studio.</p>
-            <a class="profile-link" href="https://www.linkedin.com/in/bderenzi" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="profile-link" href="https://www.linkedin.com/in/bderenzi" target="_blank" rel="noopener" aria-label="Brian DeRenzi on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/>
+              </svg>
+            </a>
           </article>
           <article class="person">
             <h3>Andrea Spillmann-Gajek</h3>
             <div class="role">Operations and partnerships</div>
             <p>Global health operator focused on turning promising ideas into programs that can scale sustainably.</p>
-            <a class="profile-link" href="https://www.linkedin.com/in/andreaspillmann" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="profile-link" href="https://www.linkedin.com/in/andreaspillmann" target="_blank" rel="noopener" aria-label="Andrea Spillmann-Gajek on LinkedIn">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0Z"/>
+              </svg>
+            </a>
           </article>
         </div>
       </div>
