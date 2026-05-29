@@ -20,5 +20,5 @@ The site is intentionally dependency-free: `index.html`, `favicon.ico`, and file
 
 ## Assets
 
-- `assets/hero-community-health-workers.jpg` is a public-domain Wikimedia Commons photo, "Community Health Workers (5762479865).jpg", credited there to Nena Terrell/USAID.
+- `assets/hero-chw-neno-home-visit.webp` is the PIH Malawi/Neno CHW home visit photo selected for the hero image, credited in the source URL to T. Patterson: https://www.pih.org/sites/default/files/styles/article_xlarge/public/2022-12/1200_malawi_20220824_chw_neno_home_visit_tpatterson_12594.webp?itok=c6ct3p9F.
 - `assets/acompa-icon-transparent.png` and `favicon.ico` come from Acompa brand assets.
