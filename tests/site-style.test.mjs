@@ -15,6 +15,30 @@ async function loadCss() {
   }
 }
 
+function cssToken(css, name) {
+  const match = css.match(new RegExp(`${name}:\\s*(#[0-9a-f]{6})`, "i"));
+  assert.ok(match, `Expected stylesheet to define a hex value for ${name}`);
+  return match[1];
+}
+
+function luminance(hex) {
+  const channels = hex.slice(1).match(/../g).map((channel) => Number.parseInt(channel, 16) / 255);
+  const [red, green, blue] = channels.map((channel) => (
+    channel <= 0.04045
+      ? channel / 12.92
+      : ((channel + 0.055) / 1.055) ** 2.4
+  ));
+  return (0.2126 * red) + (0.7152 * green) + (0.0722 * blue);
+}
+
+function contrastRatio(foreground, background) {
+  const foregroundLuminance = luminance(foreground);
+  const backgroundLuminance = luminance(background);
+  const lighter = Math.max(foregroundLuminance, backgroundLuminance);
+  const darker = Math.min(foregroundLuminance, backgroundLuminance);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
 test("defines the restrained Acompa palette and editorial type system", async () => {
   const css = await loadCss();
   for (const token of ["--paper", "--ink", "--deep", "--blue", "--lime", "--serif", "--sans"]) {
@@ -22,6 +46,22 @@ test("defines the restrained Acompa palette and editorial type system", async ()
   }
   assert.ok(css.includes('Iowan Old Style'), "Expected a local editorial serif stack");
   assert.ok(css.includes("ui-sans-serif"), "Expected a precise system sans stack");
+});
+
+test("keeps small palette text at WCAG AA contrast on light backgrounds", async () => {
+  const css = await loadCss();
+  const foregrounds = [cssToken(css, "--blue"), cssToken(css, "--muted")];
+  const backgrounds = [cssToken(css, "--paper"), cssToken(css, "--paper-light")];
+
+  for (const foreground of foregrounds) {
+    for (const background of backgrounds) {
+      const ratio = contrastRatio(foreground, background);
+      assert.ok(
+        ratio >= 4.5,
+        `Expected ${foreground} on ${background} to reach 4.5:1; received ${ratio.toFixed(2)}:1`,
+      );
+    }
+  }
 });
 
 test("provides editorial layouts instead of a generic card wall", async () => {
