@@ -1,8 +1,24 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+const homepageHtml = await readFile(new URL("../index.html", import.meta.url), "utf8");
+let draftHtml = "";
+
+try {
+  draftHtml = await readFile(new URL("../draft.html", import.meta.url), "utf8");
+} catch (error) {
+  if (error.code !== "ENOENT") {
+    throw error;
+  }
+}
+
+const html = draftHtml;
+
+function sha256(value) {
+  return createHash("sha256").update(value).digest("hex");
+}
 
 function assertIncludesAll(values, subject = html) {
   for (const value of values) {
@@ -25,6 +41,19 @@ function assertInOrder(values) {
     previousIndex = currentIndex;
   }
 }
+
+test("keeps the current homepage unchanged and publishes the redesign as an unlisted review page", () => {
+  assert.equal(
+    sha256(homepageHtml),
+    "14ee8b392ae190bf332fc42ff6a15da16077d56d9dadcbead533fde522bd91e5",
+    "Expected index.html to remain byte-for-byte identical to the current homepage",
+  );
+  assert.ok(draftHtml, "Expected the redesign to live at draft.html");
+  assert.ok(
+    draftHtml.includes('<meta name="robots" content="noindex, nofollow">'),
+    "Expected the team-review page to stay out of search indexes",
+  );
+});
 
 test("publishes the authoritative mission and vision", () => {
   assertIncludesAll([
